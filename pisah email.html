@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memisahkan Email dan Password</title>
+</head>
+<body>
+
+    <h1>Memisahkan Email dan Password</h1>
+
+    <textarea id="inputText" rows="10" cols="50" placeholder="Masukkan data email dan password di sini... (misalnya, satu kolom)"></textarea><br><br>
+    <button onclick="processInput()">Pisahkan</button>
+
+    <h2>Hasil Pisahan:</h2>
+    <table border="1" id="resultTable">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        function processInput() {
+            // Ambil nilai dari textarea
+            let inputText = document.getElementById("inputText").value.trim();
+            
+            // Pisahkan berdasarkan baris
+            let lines = inputText.split("\n"); 
+
+            let tableBody = document.getElementById("resultTable").getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ""; // Bersihkan isi tabel sebelum ditambahkan hasil baru
+
+            // Proses setiap baris (untuk setiap email-password dalam satu kolom)
+            lines.forEach(line => {
+                let parts = line.trim().split(/\s+/); // Pisahkan berdasarkan spasi
+
+                // Pastikan ada dua bagian (email dan password)
+                if (parts.length === 2) {
+                    let email = parts[0];
+                    let password = parts[1];
+
+                    // Tambahkan baris baru ke tabel
+                    let row = tableBody.insertRow();
+                    let emailCell = row.insertCell(0);
+                    let passwordCell = row.insertCell(1);
+
+                    emailCell.textContent = email;
+                    passwordCell.textContent = password;
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
